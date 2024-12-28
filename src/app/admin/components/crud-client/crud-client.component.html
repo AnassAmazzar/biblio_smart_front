@@ -14,7 +14,7 @@
               label="Delete"
               icon="pi pi-trash"
               (onClick)="deleteSelectedProducts()"
-              [disabled]="!selectedProducts || !selectedProducts.length" />
+              [disabled]="!selectedClient || !selectedClient.length" />
       </ng-template>
 
       <ng-template pTemplate="right">
@@ -34,12 +34,12 @@
 
   <p-table
       #dt
-      [value]="products"
+      [value]="clients"
       [rows]="10"
       [paginator]="true"
       [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
       [tableStyle]="{ 'min-width': '75rem' }"
-      [(selection)]="selectedProducts"
+      [(selection)]="selectedClient"
       [rowHover]="true"
       dataKey="id"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
@@ -64,58 +64,43 @@
               <th style="width: 4rem">
                   <p-tableHeaderCheckbox />
               </th>
-              <th pSortableColumn="name" style="min-width:15rem">
-                  Name <p-sortIcon field="name" />
-              </th>
-              <th>
-                  Image
+              <th pSortableColumn="nom" style="min-width:15rem">
+                  Nom <p-sortIcon field="nom" />
               </th>
               <th pSortableColumn="price">
-                  Price <p-sortIcon field="price" />
+                Prenom <p-sortIcon field="price" />
               </th>
-              <th pSortableColumn="category" style="min-width:10rem">
-                  Category <p-sortIcon field="category" />
+              <th pSortableColumn="email" style="min-width:15rem">
+                  Email <p-sortIcon field="email" />
               </th>
-              <th pSortableColumn="rating">
-                  Reviews <p-sortIcon field="rating" />
+              <th pSortableColumn="telephone" style="min-width:10rem">
+                  Telephone <p-sortIcon field="telephone" />
               </th>
               <th pSortableColumn="inventoryStatus" style="min-width:10rem">
-                  Status <p-sortIcon field="inventoryStatus" />
+                  Mot de passe <p-sortIcon field="inventoryStatus" />
               </th>
               <th></th>
           </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-product>
+      <ng-template pTemplate="body" let-client>
           <tr>
               <td>
-                  <p-tableCheckbox [value]="product" />
+                  <p-tableCheckbox [value]="client" />
               </td>
               <td>
-                  {{ product.name }}
+                  {{ client.nom }}
               </td>
               <td>
-              <img
-                  [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
-                  [alt]="product.name"
-                  width="50"
-                  class="shadow-4" />
+                  {{ client.prenom }}
               </td>
               <td>
-                  {{ product.price | currency : 'USD' }}
+                  {{ client.email }}
               </td>
               <td>
-                  {{ product.category }}
+                  {{ client.telephone }}
               </td>
               <td>
-                  <p-rating
-                      [(ngModel)]="product.rating"
-                      [readonly]="true"
-                      [cancel]="false" />
-              </td>
-              <td>
-                  <p-tag
-                      [value]="product.inventoryStatus"
-                      [severity]="getSeverity(product.inventoryStatus)" />
+                  {{ client.password }}
               </td>
               <td>
                   <p-button
@@ -124,61 +109,71 @@
                       [rounded]="true"
                       [outlined]="true"
                       severity="success"
-                      (onClick)="editProduct(product)" />
+                      (onClick)="editProduct(client)" />
                   <p-button
                       icon="pi pi-trash"
                       severity="danger"
                       [rounded]="true"
                       [outlined]="true"
-                      (onClick)="deleteProduct(product)" />
+                      (onClick)="deleteProduct(client)" />
               </td>
           </tr>
       </ng-template>
       <ng-template pTemplate="summary">
           <div class="flex align-items-center justify-content-between">
-              In total there are {{ products ? products.length : 0 }} products.
+              In total there are {{ clients ? clients.length : 0 }} clients.
           </div>
       </ng-template>
   </p-table>
 
   <p-dialog
-      [(visible)]="productDialog"
+      [(visible)]="clientDialog"
       [style]="{ width: '450px' }"
       header="Product Details"
       [modal]="true"
       styleClass="p-fluid">
           <ng-template pTemplate="content">
-              <img
-                  [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
-                  [alt]="product.image"
-                  class="block m-auto pb-3"
-                  *ngIf="product.image" />
               <div class="field">
-                  <label for="name">Name</label>
+                  <label for="nom">Nom</label>
                   <input
                       type="text"
                       pInputText
-                      id="name"
-                      [(ngModel)]="product.name"
+                      id="nom"
+                      [(ngModel)]="client.nom"
                       required
                       autofocus />
-                  <small class="p-error" *ngIf="submitted && !product.name">
+                  <small class="p-error" *ngIf="submitted && !client.nom">
                       Name is required.
                   </small>
               </div>
               <div class="field">
-                  <label for="description">Description</label>
-                  <textarea
-                      id="description"
-                      pInputTextarea
-                      [(ngModel)]="product.description"
+                  <label for="name">Prenom</label>
+                  <input
+                      type="text"
+                      pInputText
+                      id="prenom"
+                      [(ngModel)]="client.prenom"
                       required
-                      rows="3"
-                      cols="20">
-                  </textarea>
+                      autofocus />
+                  <small class="p-error" *ngIf="submitted && !client.prenom">
+                      Name is required.
+                  </small>
+              </div>
+              <div class="field">
+                  <label for="telephone">Telephone</label>
+                  <input
+                      type="text"
+                      pInputText
+                      id="telephone"
+                      [(ngModel)]="client.telephone"
+                      required
+                      autofocus />
+                  <small class="p-error" *ngIf="submitted && !client.telephone">
+                      Name is required.
+                  </small>
               </div>
 
-              <div class="field">
+              <!-- <div class="field">
                   <label for="inventoryStatus">Inventory Status</label>
                   <p-dropdown
                       [(ngModel)]="product.inventoryStatus"
@@ -195,61 +190,33 @@
                                   [severity]="getSeverity(option.label)" />
                           </ng-template>
                   </p-dropdown>
-              </div>
-
-              <div class="field">
-                  <label class="mb-3">Category</label>
-                  <div class="formgrid grid">
-                      <div class="field-radiobutton col-6">
-                          <p-radioButton
-                              id="category1"
-                              name="category"
-                              value="Accessories"
-                              [(ngModel)]="product.category" />
-                          <label for="category1">Accessories</label>
-                      </div>
-                      <div class="field-radiobutton col-6">
-                          <p-radioButton
-                              id="category2"
-                              name="category"
-                              value="Clothing"
-                              [(ngModel)]="product.category" />
-                          <label for="category2">Clothing</label>
-                      </div>
-                      <div class="field-radiobutton col-6">
-                          <p-radioButton
-                              id="category3"
-                              name="category"
-                              value="Electronics"
-                              [(ngModel)]="product.category" />
-                          <label for="category3">Electronics</label>
-                      </div>
-                      <div class="field-radiobutton col-6">
-                          <p-radioButton
-                              id="category4"
-                              name="category"
-                              value="Fitness"
-                              [(ngModel)]="product.category" />
-                          <label for="category4">Fitness</label>
-                      </div>
-                  </div>
-              </div>
-
+              </div> -->
               <div class="formgrid grid">
                   <div class="field col">
-                      <label for="price">Price</label>
-                      <p-inputNumber
-                          id="price"
-                          [(ngModel)]="product.price"
-                          mode="currency"
-                          currency="USD"
-                          locale="en-US" />
+                      <label for="email">Email</label>
+                      <input
+                          type="text"
+                          pInputText
+                          id="email"
+                          [(ngModel)]="client.email"
+                          required
+                          autofocus />
+                          <small class="p-error" *ngIf="submitted && !client.telephone">
+                            Name is required.
+                        </small>
                   </div>
                   <div class="field col">
-                      <label for="quantity">Quantity</label>
-                      <p-inputNumber
-                          id="quantity"
-                          [(ngModel)]="product.quantity" />
+                      <label for="password">Password</label>
+                      <input
+                          type="password"
+                          pInputText
+                          id="password"
+                          [(ngModel)]="client.password"
+                          required
+                          autofocus />
+                          <small class="p-error" *ngIf="submitted && !client.telephone">
+                            Name is required.
+                        </small>
                   </div>
               </div>
           </ng-template>

@@ -33,7 +33,7 @@ export class CarouselImgComponent implements OnInit{
   //   constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
-      this.backgroundUrl="/assets/carousel/carousel-moto-1.jpg";
+      this.backgroundUrl="/assets/carousel/carousel-book-1.jpg";
         //this.photoService.getImages().then((images) => (this.images = images));
     }
 }

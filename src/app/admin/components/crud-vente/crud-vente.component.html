@@ -1,0 +1,201 @@
+
+<div class="card">
+  <p-toast />
+  <p-toolbar styleClass="mb-4 gap-2">
+      <ng-template pTemplate="left">
+          <p-button
+              severity="success"
+              label="New"
+              icon="pi pi-plus"
+              class="mr-2"
+              (onClick)="openNew()" />
+          <p-button
+              severity="danger"
+              label="Delete"
+              icon="pi pi-trash"
+              (onClick)="deleteSelectedventes()"
+              [disabled]="!selectedvente || !selectedvente.length" />
+      </ng-template>
+
+      <ng-template pTemplate="right">
+          <p-fileUpload
+              mode="basic"
+              accept="image/*"
+              [maxFileSize]="1000000"
+              label="Import"
+              chooseLabel="Import"
+              class="mr-2 inline-block" />
+          <p-button
+              severity="help"
+              label="Export"
+              icon="pi pi-upload" />
+      </ng-template>
+  </p-toolbar>
+
+  <p-table
+      #dt
+      [value]="ventes"
+      [rows]="10"
+      [paginator]="true"
+      [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+      [tableStyle]="{ 'min-width': '75rem' }"
+      [(selection)]="selectedvente"
+      [rowHover]="true"
+      dataKey="id"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [showCurrentPageReport]="true"
+  >
+      <ng-template pTemplate="caption">
+          <div class="flex align-items-center justify-content-between">
+              <h5 class="m-0">Manage ventes</h5>
+              <span class="p-input-icon-left">
+                  <i class="pi pi-search"></i>
+                  <input
+                      #globalFilterInput
+                      pInputText
+                      type="text"
+                      (input)="dt.filterGlobal(globalFilterInput.value, 'contains')"
+                      placeholder="Search..." />
+              </span>
+          </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+          <tr>
+              <th style="width: 4rem">
+                  <p-tableHeaderCheckbox />
+              </th>
+              <th pSortableColumn="marque" style="min-width:15rem">
+                  Marque <p-sortIcon field="marque" />
+              </th>
+              <th pSortableColumn="nom">
+                  Nom <p-sortIcon field="nom" />
+              </th>
+              <th pSortableColumn="prix" style="min-width:15rem">
+                  Prix <p-sortIcon field="prix" />
+              </th>
+              <th pSortableColumn="quantite" style="min-width:10rem">
+                  Quantite <p-sortIcon field="quantite" />
+              </th>
+              <th></th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-vente>
+          <tr>
+              <td>
+                  <p-tableCheckbox [value]="vente" />
+              </td>
+              <td>
+                  {{ vente.marque }}
+              </td>
+              <td>
+                  {{ vente.nom }}
+              </td>
+              <td>
+                  {{ vente.prix }}
+              </td>
+              <td>
+                  {{ vente.qteStock }}
+              </td>
+              <td>
+                  <p-button
+                      icon="pi pi-pencil"
+                      class="mr-2"
+                      [rounded]="true"
+                      [outlined]="true"
+                      severity="success"
+                      (onClick)="editvente(vente)" />
+                  <p-button
+                      icon="pi pi-trash"
+                      severity="danger"
+                      [rounded]="true"
+                      [outlined]="true"
+                      (onClick)="deleteVente(vente)" />
+              </td>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+          <div class="flex align-items-center justify-content-between">
+              In total there are {{ ventes ? ventes.length : 0 }} clients.
+          </div>
+      </ng-template>
+  </p-table>
+
+  <p-dialog
+      [(visible)]="venteDialog"
+      [style]="{ width: '450px' }"
+      header="vente Details"
+      [modal]="true"
+      styleClass="p-fluid">
+          <ng-template pTemplate="content">
+              <div class="field">
+                  <label for="marque">Marque</label>
+                  <input
+                      type="text"
+                      pInputText
+                      id="marque"
+                      [(ngModel)]="vente.marque"
+                      required
+                      autofocus />
+                  <small class="p-error" *ngIf="submitted && !vente.marque">
+                      Name is required.
+                  </small>
+              </div>
+              <div class="field">
+                  <label for="nom">Nom</label>
+                  <input
+                      type="text"
+                      pInputText
+                      id="nom"
+                      [(ngModel)]="vente.nom"
+                      required
+                      autofocus />
+                  <small class="p-error" *ngIf="submitted && !vente.nom">
+                      Name is required.
+                  </small>
+              </div>
+              <div class="formgrid grid">
+                  <div class="field col">
+                      <label for="prix">Prix</label>
+                      <input
+                        type="number"
+                        pInputText
+                        id="prix"
+                        [(ngModel)]="vente.prix"
+                        required
+                        autofocus />
+                      <small class="p-error" *ngIf="submitted && !vente.prix">
+                          Name is required.
+                      </small>
+                  </div>
+                  <div class="field col">
+                      <label for="quantite">Quantite</label>
+                      <input
+                          type="number"
+                          pInputText
+                          id="qteStock"
+                          [(ngModel)]="vente.qteStock"
+                          required
+                          autofocus />
+                          <small class="p-error" *ngIf="submitted && !vente.qteStock">
+                            Name is required.
+                        </small>
+                  </div>
+              </div>
+          </ng-template>
+
+          <ng-template pTemplate="footer">
+              <p-button
+                  label="Cancel"
+                  icon="pi pi-times"
+                  [text]="true"
+                  (onClick)="hideDialog()" />
+              <p-button
+                  label="Save"
+                  icon="pi pi-check"
+                  [text]="true"
+                  (onClick)="saveVente()" />
+          </ng-template>
+  </p-dialog>
+
+  <p-confirmDialog [style]="{ width: '450px' }" />
+</div>

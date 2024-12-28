@@ -4,11 +4,12 @@ import { HomeComponent } from './client/pages/home/home.component';
 import { DashboardComponent } from './admin/pages/dashboard/dashboard.component';
 import { PrimeNGConfig } from 'primeng/api';
 import { CommonModule } from '@angular/common';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, HomeComponent, DashboardComponent],
+  imports: [CommonModule, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -26,3 +27,10 @@ export class AppComponent implements OnInit {
   }
 
 }
+/*
+@if(!checkRoute()){
+  <app-home></app-home>
+}@else{
+
+}
+*/

@@ -4,6 +4,7 @@ import { CarouselImgComponent } from '../../components/carousel-img/carousel-img
 import { ProdItemComponent } from '../../components/prod-item/prod-item.component';
 import { FooterBarComponent } from '../../components/footer-bar/footer-bar.component';
 
+
 @Component({
   selector: 'app-home',
   standalone: true,
