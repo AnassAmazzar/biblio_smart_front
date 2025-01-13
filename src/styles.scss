@@ -1,6 +1,81 @@
 *{
   margin: 0%;
 }
+
+/*
+  Styles pour les arrière-plans personnalisés des éléments "book".
+  Chaque classe correspond à une couleur de fond spécifique :
+  - .bg-book-primary : Couleur primaire (#4051b6), utilisée pour les éléments principaux.
+  - .bg-book-secondary : Couleur secondaire (#c9352b), utilisée pour mettre en valeur des éléments secondaires.
+  - .bg-book-tertiary : Couleur tertiaire (#fbe0b2), pour des éléments accentués ou en surbrillance.
+  - .bg-book-quaternary : Couleur quaternaire (#607e8c), idéale pour des arrière-plans neutres.
+  - .bg-book-quinary : Couleur quinaire (#40a9f4), utilisée pour des éléments distincts ou interactifs.
+*/
+.bg-book-primary {
+  background-color: #4051b6;
+}
+.bg-book-secondary {
+  background-color: #9d433d;
+}
+.bg-book-tertiary {
+  background-color: #bc8f42;
+}
+.bg-book-quaternary {
+  background-color: #607e8c;
+}
+.bg-book-quinary {
+  background-color: #40a9f4;
+}
+
+/*Start SignIn && SignUp*/
+.card-login{
+  margin: 3% 13%;
+  //background-color: #40a9f4;
+  background: linear-gradient(#40a9f4, #bc8f42);
+  border-radius: 2rem;
+  padding: 5rem;
+  // background: linear-gradient(45deg, #4051b6, #bc8f42, #40a9f4);
+}
+.item-diff-2{
+  display: none;
+}
+.cards-titles{
+  display: flex;
+  width: 30%;
+  align-items: center;
+  margin: 0 auto;
+  justify-content: space-between;
+  padding-top: 5%;
+}
+
+/*
+  - Définit les styles de base pour la page de connexion (login page)
+*/
+@media screen and (max-width: 600px) {
+  .card-login-resp{
+    flex-direction: column;
+  }
+  .card-login{
+    margin: 10% 13%;
+    padding: 0 2rem;
+  }
+  .item-diff-1{
+    display: none;
+  }
+  .item-diff-2{
+    display: block;
+  }
+  .cards-titles{
+    flex-direction: column-reverse;
+    width: 30%;
+    align-items: center;
+    margin: 0 auto;
+    justify-content: space-between;
+    padding-top: 10%;
+  }
+}
+/*End SignIn && SignUp*/
+
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/primeng/resources/themes/lara-light-blue/theme.css";
 @import "../node_modules/primeflex/primeflex.css";

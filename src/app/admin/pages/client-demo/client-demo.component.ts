@@ -18,7 +18,8 @@ export class ClientDemoComponent implements OnInit {
     prenom: 'Doe',
     email: 'john.doe@example.com',
     telephone: '1234567890',
-    password: '123456'
+    password: '123456',
+    role: 'User'
   };
 
   constructor(){}

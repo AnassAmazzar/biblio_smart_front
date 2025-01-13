@@ -1,0 +1,68 @@
+<div class="cards">
+  <div class="cards-titles">
+    <h2>Biblio-Smart</h2>
+    <img src="/assets/logo/logo-biblioSmart.png" alt="logo-biblioSmart" height="100" width="100" />
+  </div>
+  <div class="card-login">
+    <div class="card-login-resp flex">
+      <div class="w-full md:w-5/12 flex flex-column items-center justify-center gap-3 py-5">
+        <div class="flex flex-column gap-2">
+          <label for="nom" class="text-white font-bold">Nom</label>
+          <input pInputText id="nom" type="text" [(ngModel)]="client.nom" required autofocus />
+          <small class="p-error bg-white border-round p-3" *ngIf="submitted && !client.nom">
+            Nom is required.
+          </small>
+        </div>
+        <div class="flex flex-column gap-2">
+          <label for="prenom" class="text-white font-bold">Prenom</label>
+          <input pInputText id="prenom" type="text" [(ngModel)]="client.prenom" required autofocus />
+          <small class="p-error bg-white border-round p-3" *ngIf="submitted && !client.prenom">
+            Prenom is required.
+          </small>
+        </div>
+        <div class="flex flex-column gap-2">
+          <label for="telephone" class="text-white font-bold">Telephone</label>
+          <input pInputText id="telephone" type="tel" [(ngModel)]="client.telephone" required autofocus />
+          <small class="p-error bg-white border-round p-3" *ngIf="submitted && !client.telephone">
+            Telephone is required.
+          </small>
+        </div>
+        <div class="flex flex-column gap-2">
+          <label for="email" class="text-white font-bold">Email</label>
+          <input pInputText id="email" type="email" [(ngModel)]="client.email" required autofocus />
+          <small class="p-error bg-white border-round p-3" *ngIf="submitted && !client.email">
+            Email is required.
+          </small>
+        </div>
+        <div class="flex flex-column gap-2">
+          <label for="password" class="text-white font-bold">Mot de passe</label>
+          <input pInputText id="password" type="password" [(ngModel)]="client.password" required autofocus />
+          <small class="p-error bg-white border-round p-3" *ngIf="submitted && !client.password">
+            Mot de passe is required.
+          </small>
+        </div>
+        <div class="flex flex-column gap-2">
+          <label for="password" class="text-white font-bold">Vous êtes</label>
+          <select [(ngModel)]="client.role" optionLabel="role" class="p-3 border-round">
+            <option *ngFor="let role of roles" [value]="role">{{role}}</option>
+            <small class="p-error bg-white border-round p-3" *ngIf="submitted && !client.role">
+              Role is required.
+            </small>
+          </select>
+        </div>
+        <div class="flex">
+          <p-button label="Inscription" (onClick)="register()" icon="pi pi-user" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto" />
+        </div>
+      </div>
+      <div class="w-full">
+        <p-divider layout="vertical" class="!hidden md:!flex item-diff-1"><b>OR</b></p-divider>
+        <p-divider layout="horizontal" class="!flex md:!hidden item-diff-2" align="center"><b>OR</b></p-divider>
+      </div>
+      <div class="w-full flex align-items-center justify-center py-5">
+        <p-button label="Sign In" (onClick)="redirectTo()" icon="pi pi-user-plus" severity="success"
+          class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto" />
+      </div>
+    </div>
+  </div>
+
+</div>

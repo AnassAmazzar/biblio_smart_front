@@ -1,0 +1,36 @@
+<div class="cards">
+  <div class="cards-titles">
+    <h2>Biblio-Smart</h2>
+    <img src="/assets/logo/logo-biblioSmart.png" alt="logo-biblioSmart" height="100" width="100"/>
+  </div>
+  <div class="card-login">
+    <div class="card-login-resp flex">
+        <div class="w-full md:w-5/12 flex flex-column items-center justify-center gap-3 py-5">
+            <div class="flex flex-column gap-2">
+                <label for="email" class="text-white font-bold">Email</label>
+                <input pInputText id="username" type="text" [(ngModel)]="user.email" required autofocus/>
+                <small class="p-error bg-white border-round p-3" *ngIf="submitted && !user.email">
+                  Email is required.
+                </small>
+            </div>
+            <div class="flex flex-column gap-2">
+                <label for="password" class="text-white font-bold">Mot de passe</label>
+                <input pInputText id="password" type="password" [(ngModel)]="user.password" required autofocus/>
+                <small class="p-error bg-white border-round p-3" *ngIf="submitted && !user.password">
+                  Mot de passe is required.
+                </small>
+            </div>
+            <div class="flex">
+                <p-button label="Connexion" (onClick)="login()" icon="pi pi-user" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto" />
+            </div>
+        </div>
+        <div class="w-full">
+            <p-divider layout="vertical" class="!hidden md:!flex item-diff-1"><b>OR</b></p-divider>
+            <p-divider layout="horizontal" class="!flex md:!hidden item-diff-2" align="center"><b>OR</b></p-divider>
+        </div>
+        <div class="w-full flex align-items-center justify-center py-5">
+            <p-button label="Sign Up" (onClick)="redirectTo()" icon="pi pi-user-plus" severity="success" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto" />
+        </div>
+    </div>
+  </div>
+</div>

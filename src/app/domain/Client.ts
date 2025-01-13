@@ -5,4 +5,6 @@ export interface Client{
   telephone: string;
   email: string;
   password: string;
+  role: string;
+  // role: "User" | "Auteur";
 }

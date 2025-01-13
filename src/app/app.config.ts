@@ -13,6 +13,7 @@ import { ApolloClient, InMemoryCache } from '@apollo/client/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }),
+    provideHttpClient(),
     provideRouter(routes),
     provideClientHydration(),
     provideAnimationsAsync(), provideHttpClient(),
@@ -37,6 +38,10 @@ export const appConfig: ApplicationConfig = {
           product: {
             cache: new InMemoryCache(),
             link: httpLink.create({ uri: 'http://localhost:8094/product/graphql' }),
+          },
+          authentification: {
+            cache: new InMemoryCache(),
+            link: httpLink.create({ uri: 'http://localhost:8094/auth/graphql' }),
           }
       }),
       deps: [HttpLink],

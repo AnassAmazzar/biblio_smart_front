@@ -17,11 +17,11 @@ export class MenuBarComponent {
         this.items = [
             {
                 label:'Home',
-                icon:'pi pi-fw pi-file'
+                icon:'pi pi-fw pi-home'
             },
             {
                 label:'About us',
-                icon:'pi pi-fw pi-pencil'
+                icon:'pi pi-fw pi-book'
             },
             {
                 label:'Catalogue',
@@ -32,41 +32,42 @@ export class MenuBarComponent {
                 icon:'pi pi-fw pi-user',
                 items:[
                     {
-                        label:'New',
+                        label:'Connexion',
+                        icon:'pi pi-fw pi-sign-in',
+
+                    },
+                    {
+                        label:'Inscription',
                         icon:'pi pi-fw pi-user-plus',
 
                     },
                     {
-                        label:'Delete',
-                        icon:'pi pi-fw pi-user-minus',
+                        label:'Déconnexion',
+                        icon:'pi pi-fw pi-sign-out',
 
                     },
-                    {
-                        label:'Search',
-                        icon:'pi pi-fw pi-users',
-                        items:[
-                        {
-                            label:'Filter',
-                            icon:'pi pi-fw pi-filter',
-                            items:[
-                                {
-                                    label:'Print',
-                                    icon:'pi pi-fw pi-print'
-                                }
-                            ]
-                        },
-                        {
-                            icon:'pi pi-fw pi-bars',
-                            label:'List'
-                        }
-                        ]
-                    }
+                    // {
+                    //     label:'Search',
+                    //     icon:'pi pi-fw pi-users',
+                    //     items:[
+                    //     {
+                    //         label:'Filter',
+                    //         icon:'pi pi-fw pi-filter',
+                    //         items:[
+                    //             {
+                    //                 label:'Print',
+                    //                 icon:'pi pi-fw pi-print'
+                    //             }
+                    //         ]
+                    //     },
+                    //     {
+                    //         icon:'pi pi-fw pi-bars',
+                    //         label:'List'
+                    //     }
+                    //     ]
+                    // }
                 ]
-            },
-          {
-              label:'Quit',
-              icon:'pi pi-fw pi-power-off'
-          }
+            }
         ];
     }
 }
