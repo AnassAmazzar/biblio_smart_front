@@ -64,17 +64,17 @@
               <th style="width: 4rem">
                   <p-tableHeaderCheckbox />
               </th>
-              <th pSortableColumn="marque" style="min-width:15rem">
-                  Marque <p-sortIcon field="marque" />
+              <th pSortableColumn="idClient" style="min-width:15rem">
+                  Id Client<p-sortIcon field="idClient" />
               </th>
-              <th pSortableColumn="nom">
-                  Nom <p-sortIcon field="nom" />
+              <th pSortableColumn="produitId">
+                Id Produit <p-sortIcon field="produitId" />
               </th>
-              <th pSortableColumn="prix" style="min-width:15rem">
-                  Prix <p-sortIcon field="prix" />
+              <th pSortableColumn="dateVente" style="min-width:15rem">
+                Date de Vente <p-sortIcon field="dateVente" />
               </th>
-              <th pSortableColumn="quantite" style="min-width:10rem">
-                  Quantite <p-sortIcon field="quantite" />
+              <th pSortableColumn="quantitie" style="min-width:10rem">
+                  Quantite <p-sortIcon field="quantitie" />
               </th>
               <th></th>
           </tr>
@@ -85,16 +85,16 @@
                   <p-tableCheckbox [value]="vente" />
               </td>
               <td>
-                  {{ vente.marque }}
+                  {{ vente.idClient }}
               </td>
               <td>
-                  {{ vente.nom }}
+                  {{ vente.produitId }}
               </td>
               <td>
-                  {{ vente.prix }}
+                  {{ vente.dateVente }}
               </td>
               <td>
-                  {{ vente.qteStock }}
+                  {{ vente.quantitie }}
               </td>
               <td>
                   <p-button
@@ -115,7 +115,7 @@
       </ng-template>
       <ng-template pTemplate="summary">
           <div class="flex align-items-center justify-content-between">
-              In total there are {{ ventes ? ventes.length : 0 }} clients.
+              In total there are {{ ventes ? ventes.length : 0 }} ventes.
           </div>
       </ng-template>
   </p-table>
@@ -128,56 +128,56 @@
       styleClass="p-fluid">
           <ng-template pTemplate="content">
               <div class="field">
-                  <label for="marque">Marque</label>
+                  <label for="idClient">ID Client</label>
                   <input
-                      type="text"
+                      type="number"
                       pInputText
-                      id="marque"
-                      [(ngModel)]="vente.marque"
+                      id="idClient"
+                      [(ngModel)]="vente.idClient"
                       required
                       autofocus />
-                  <small class="p-error" *ngIf="submitted && !vente.marque">
-                      Name is required.
+                  <small class="p-error" *ngIf="submitted && !vente.idClient">
+                      Id Client is required.
                   </small>
               </div>
               <div class="field">
-                  <label for="nom">Nom</label>
+                  <label for="produitId">idProduit</label>
                   <input
-                      type="text"
+                      type="number"
                       pInputText
-                      id="nom"
-                      [(ngModel)]="vente.nom"
+                      id="produitId"
+                      [(ngModel)]="vente.produitId"
                       required
                       autofocus />
-                  <small class="p-error" *ngIf="submitted && !vente.nom">
-                      Name is required.
+                  <small class="p-error" *ngIf="submitted && !vente.produitId">
+                      Product Id is required.
                   </small>
               </div>
               <div class="formgrid grid">
                   <div class="field col">
-                      <label for="prix">Prix</label>
+                      <label for="dateVente">Date de Vente</label>
                       <input
-                        type="number"
+                        type="date"
                         pInputText
-                        id="prix"
-                        [(ngModel)]="vente.prix"
+                        id="dateVente"
+                        [(ngModel)]="vente.dateVente"
                         required
                         autofocus />
-                      <small class="p-error" *ngIf="submitted && !vente.prix">
-                          Name is required.
+                      <small class="p-error" *ngIf="submitted && !vente.dateVente">
+                          Date is required.
                       </small>
                   </div>
                   <div class="field col">
-                      <label for="quantite">Quantite</label>
+                      <label for="quantitie">Quantite</label>
                       <input
                           type="number"
                           pInputText
-                          id="qteStock"
-                          [(ngModel)]="vente.qteStock"
+                          id="quantitie"
+                          [(ngModel)]="vente.quantitie"
                           required
                           autofocus />
-                          <small class="p-error" *ngIf="submitted && !vente.qteStock">
-                            Name is required.
+                          <small class="p-error" *ngIf="submitted && !vente.quantitie">
+                            Quantite is required.
                         </small>
                   </div>
               </div>
@@ -191,9 +191,9 @@
                   (onClick)="hideDialog()" />
               <p-button
                   label="Save"
-                  icon="pi pi-check"
                   [text]="true"
-                  (onClick)="saveVente()" />
+                  icon="pi pi-check"
+                  (click)="saveVente()" />
           </ng-template>
   </p-dialog>
 

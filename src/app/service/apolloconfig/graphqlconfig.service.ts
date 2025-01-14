@@ -33,5 +33,16 @@ export class GraphqlconfigService {
       cache: new InMemoryCache()
     })
   }
+  createVenteServiceClient(){
+    return new ApolloClient({
+      link: createHttpLink({
+        uri: 'http://localhost:8094/vente/graphql',
+        headers:{
+
+        }
+      }),
+      cache: new InMemoryCache()
+    })
+  }
 
 }

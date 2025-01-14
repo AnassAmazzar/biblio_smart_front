@@ -1,5 +1,7 @@
 export interface Vente {
-  id: number,
-  id_client:number,
-  id_product:number
+    id : number,
+    idClient : number,
+    produitId : number,
+    dateVente : String,
+    quantitie : number
 }

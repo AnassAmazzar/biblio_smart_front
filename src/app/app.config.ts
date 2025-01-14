@@ -37,6 +37,10 @@ export const appConfig: ApplicationConfig = {
           product: {
             cache: new InMemoryCache(),
             link: httpLink.create({ uri: 'http://localhost:8094/product/graphql' }),
+          },
+          vente: {
+            cache: new InMemoryCache(),
+            link: httpLink.create({ uri: 'http://localhost:8094/vente/graphql' }),
           }
       }),
       deps: [HttpLink],

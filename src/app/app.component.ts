@@ -1,10 +1,7 @@
 import { Component, inject, OnInit, } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
-import { HomeComponent } from './client/pages/home/home.component';
-import { DashboardComponent } from './admin/pages/dashboard/dashboard.component';
 import { PrimeNGConfig } from 'primeng/api';
 import { CommonModule } from '@angular/common';
-import { provideHttpClient, withFetch } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',

@@ -44,7 +44,7 @@ export class CrudVenteComponent {
     statuses!: any[];
 
     constructor(private messageService: MessageService, private confirmationService: ConfirmationService, private venteService:VenteService, private routes: Router) {
-      this.venteService.vente$.subscribe(p=>{this.ventes = p;});
+      this.venteService.vente$.subscribe(v=>{this.ventes = v;});
     }
     ngOnInit() {
       this.venteService.getAllVentes();
@@ -74,31 +74,94 @@ export class CrudVenteComponent {
         this.venteDialog = true;
     }
 
-    deleteVente(vente: Vente) {
-      this.venteService.deleteVenteById(vente.id);
-
-    }
+     deleteVente(vente: Vente) {
+    
+         this.venteService.deleteVenteById(vente.id);
+         console.log("vente id   "+ vente.id );
+         if(this.venteService.ventesStatus){
+           this.confirmationService.confirm({
+               message: 'Are you sure you want to delete ' + vente.id + '?',
+               header: 'Confirm',
+               icon: 'pi pi-exclamation-triangle',
+               accept: () => {
+                 this.ventes = this.ventes.filter((val) => val.id !== vente.id);
+                 this.vente = {};
+                 this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'Vente Deleted', life: 3000 });
+               }
+           });
+         }
+       }
 
     hideDialog() {
         this.venteDialog = false;
         this.submitted = false;
     }
 
-    saveVente() {
-      this.submitted = true;
-      if (this.vente.nom?.trim()) {
-        if (this.vente.id) {
-            this.venteService.updateVente(this.vente);
-            this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'vente Updated', life: 3000 });
-            this.routes.navigateByUrl("admin/crud-vente");
-        } else {
-            this.venteService.addVente(this.vente);
-            this.venteService.vente$.subscribe(p=>{this.ventes = p;});
-            this.venteDialog = false;
-            this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'vente Created', life: 3000 });
-          }
-        }
+    // saveVente() {
+    //   console.log('saveVente() method called');
+    //   this.submitted = true;
+    //   if (this.vente.nom?.trim()) {
+    //     if (this.vente.id) {
+    //       console.log(this.vente.id);
+    //         this.venteService.updateVente(this.vente);
+    //         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'vente Updated', life: 3000 });
+    //         // this.routes.navigateByUrl("admin/crud-vente");
+    //     } else {
+    //       console.log(this.vente);
+    //         this.venteService.addVente(this.vente);
+    //         this.venteService.vente$.subscribe(p=>{this.ventes = p;});
+    //         this.venteDialog = false;
+    //         this.messageService.add({ severity: 'success', summary: 'Successful', detail: 'vente Created', life: 3000 });
+            
+    //       }
+    //     }
+    // }
+
+
+  // save methode
+
+  saveVente() {
+    console.log('saveVente() method called');
+    this.submitted = true;
+  
+    if (!this.vente.idClient || !this.vente.produitId)  {
+      console.warn('idClient and idProduit is required.');
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'idClient and idProduit is required.',
+        life: 3000,
+      });
+      return;
     }
+  
+    if (this.vente.id) {
+      // Update existing vente
+      console.log('Updating vente with ID:', this.vente.id);
+      this.venteService.updateVente(this.vente); // Method already subscribes internally
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Successful',
+        detail: 'Vente Updated',
+        life: 3000,
+      });
+      this.venteDialog = false;
+    } else {
+      // Add new vente
+      console.log('Creating new vente:', this.vente);
+      this.venteService.addVente(this.vente); // Method already subscribes internally
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Successful',
+        detail: 'Vente Created',
+        life: 3000,
+      });
+      this.venteDialog = false;
+      this.venteService.getAllVentes();
+    }
+  }
+  
+  
 
     findIndexById(id: number): number | void {
         // let index = -1;
